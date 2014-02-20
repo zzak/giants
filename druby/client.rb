@@ -22,7 +22,7 @@ class Client
   end
 
   def listen(message)
-    @remote.message(message)
+    @remote.say(message)
   end
 end
 

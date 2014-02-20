@@ -7,7 +7,7 @@ class User
     @username = username
   end
 
-  def message(str)
-    puts str
+  def say(message)
+    puts message
   end
 end
