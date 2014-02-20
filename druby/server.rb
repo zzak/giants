@@ -1,16 +1,13 @@
 class Server
-  attr_accessor :messages
-  attr_accessor :users
+  attr_accessor :messages, :users
 
   def initialize
-    @messages = {}
-    @users = {}
+    @messages, @users = {}, {}
   end
 
   def add_user remote
-    client = Client.new self, remote
-    @users[remote] = client
-    client
+    @users[remote] = Client.new self, remote
+    return @users[remote]
   end
 
   def distribute(remote, message)
