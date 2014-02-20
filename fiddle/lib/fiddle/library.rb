@@ -5,17 +5,20 @@ module Fiddle
   module Library
     def ffi_lib *libs
       @handles ||= {}
-      libs.each { |lib|
-        short = File.basename(lib).gsub(File.extname(lib), "")
-        @handles[short.to_sym] = Fiddle.dlopen(lib) }
+      libs.each do |lib|
+        basename = File.basename(lib)
+        extname = File.extname(lib)
+        short = basename.gsub(extname, "")
+        @handles[short.to_sym] = Fiddle.dlopen(lib)
+      end
     end
 
-    def attach_function lib, name, arg_types, return_type
-      f = Fiddle::Function.new(
-        @handles[lib][name.to_s],
-        arg_types.map { |x| Fiddle.const_get(:"TYPE_#{x}".upcase) },
-        Fiddle.const_get(:"TYPE_#{return_type}".upcase)
-      )
+    def attach_function lib, name, args, return_type
+      args.map! { |arg| arg = Fiddle.const_get(:"TYPE_#{arg}".upcase) }
+
+      value = Fiddle.const_get(:"TYPE_#{return_type}".upcase)
+
+      f = Fiddle::Function.new(@handles[lib][name.to_s], args, value)
 
       define_singleton_method(name) do |*args|
         f.call(*args)
