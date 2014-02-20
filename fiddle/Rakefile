@@ -1,0 +1,12 @@
+desc "build fiddle.lid"
+task :build do
+  sh "mkdir -p _build/bin"
+  sh "OPEN_DYLAN_TARGET_PLATFORM=x86_64-darwin dylan-compiler -build fiddle.lid"
+end
+
+desc "clean build directory"
+task :clean do
+  sh "rm -rf _build/"
+end
+
+task :default => :build
