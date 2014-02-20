@@ -30,7 +30,7 @@ end
 #
 # After binding the drb server, Server is where remote method calls on the drb
 # server will be passed.
-DRb.start_service 'druby://localhost:12345', Server.new
+DRb.start_service 'druby://0.0.0.0:12345', Server.new
 
 # The calling thread will suspend execution and run the thread for the druby
 # primary server.
