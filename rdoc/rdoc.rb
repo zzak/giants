@@ -15,16 +15,5 @@ class Markdown
   end
 end
 
-markdown = Markdown.new <<-EOS
-# some headings
-
-paragraphs are cool too
-
-```ruby
-def maybe_not_so_interesting
-puts "bar"
-end
-```
-EOS
-
+markdown = Markdown.new $stdin.read
 puts markdown.to_html
