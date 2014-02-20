@@ -17,12 +17,12 @@ class Client
     @username = remote.username
   end
 
-  def say(msg)
-    @server.distribute(@remote, msg)
+  def say(message)
+    @server.distribute(@remote, message)
   end
 
-  def listen(msg)
-    @remote.message(msg)
+  def listen(message)
+    @remote.message(message)
   end
 end
 
