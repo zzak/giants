@@ -1,5 +1,3 @@
-require 'drb/drb'
-
 class User
   include DRbUndumped
 
