@@ -13,9 +13,9 @@ DRb.start_service
 # Then connect to the druby server which returns a remote instance of the
 # Server object.
 remote_object = DRbObject.new(nil, remote)
-chat = User.new(username)
-entry = remote_object.add_user(chat)
+user = User.new(username)
+client = remote_object.add_user(user)
 
 while gets
-  entry.say($_)
+  client.say($_)
 end
