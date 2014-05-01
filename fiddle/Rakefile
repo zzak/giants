@@ -4,6 +4,13 @@ task :build do
   sh "OPEN_DYLAN_TARGET_PLATFORM=x86_64-darwin dylan-compiler -build fiddle.lid"
 end
 
+namespace :build do
+  desc "build fiddle-runtime"
+  task :runtime => :build do
+    $stdout << "Building of 'fiddle-runtime' started..\n"
+  end
+end
+
 desc "clean build directory"
 task :clean do
   sh "rm -rf _build/"
