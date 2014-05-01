@@ -18,7 +18,10 @@ module Fiddle
     # Pass in the following +arguments+ and the expected +return_type+, both
     # are required.
     def attach_function library, name, arguments, return_type
-      arguments.map! { |argument| argument = Fiddle.const_get(:"TYPE_#{argument}".upcase) }
+      arguments.map! do |argument|
+        argument = Fiddle.const_get(:"TYPE_#{argument}".upcase)
+      end
+
       value = Fiddle.const_get(:"TYPE_#{return_type}".upcase)
       function = Fiddle::Function.new(@handles[library][name.to_s], arguments, value)
 
