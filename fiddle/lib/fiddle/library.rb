@@ -14,15 +14,16 @@ module Fiddle
       end
     end
 
-    def attach_function lib, name, args, return_type
-      args.map! { |arg| arg = Fiddle.const_get(:"TYPE_#{arg}".upcase) }
-
+    # Attach a function by the +name+ from the given +library+.
+    # Pass in the following +arguments+ and the expected +return_type+, both
+    # are required.
+    def attach_function library, name, arguments, return_type
+      arguments.map! { |argument| argument = Fiddle.const_get(:"TYPE_#{argument}".upcase) }
       value = Fiddle.const_get(:"TYPE_#{return_type}".upcase)
+      function = Fiddle::Function.new(@handles[library][name.to_s], arguments, value)
 
-      f = Fiddle::Function.new(@handles[lib][name.to_s], args, value)
-
-      define_singleton_method(name) do |*args|
-        f.call(*args)
+      define_singleton_method(name) do |*arguments|
+        function.call(*arguments)
       end
     end
   end
